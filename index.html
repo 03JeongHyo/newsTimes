@@ -11,6 +11,7 @@
 </head>
 <body>
     <section class="container">
+        
         <section>
             <div class="head-line">
                 <svg viewBox="0 0 184 25" fill="#000">
@@ -18,22 +19,18 @@
                     </path>
                 </svg>
             </div>
-            <div class="menu">
-                <button class="menu-btn">Sport</button>
-                <button class="menu-btn">Tech</button>
-                <button class="menu-btn">World</button>
-                <button class="menu-btn">Finance</button>
-                <button class="menu-btn">Politics</button>
-                <button class="menu-btn">Business</button>
-                <button class="menu-btn">Economics</button>
-                <button class="menu-btn">Entertainment</button>
-                <button class="menu-btn">Beauty</button>
-                <button class="menu-btn"> Travel</button>
-                <button class="menu-btn">Music</button>
-                <button class="menu-btn">Food</button>
-                <button class="menu-btn">Science</button>
-                <button class="menu-btn">Gaming</button>
-                <button class="menu-btn">Energy</button>               
+            <div>
+                <input id="searchInput">
+                <button onclick="getNewsByKeyword()"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <div class="menu">              
+                <button>Business</button>
+                <button>Entertainment</button>
+                <button>General</button>
+                <button>Health</button>
+                <button>Science</button>
+                <button>Sports</button>
+                <button>Technology</button>
             </div>
         </section>
         <section id="news-board">

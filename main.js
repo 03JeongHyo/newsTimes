@@ -100,20 +100,36 @@ const paginationRender = ()=>{
         lastPage=totalPages;
     }
 
-    const firstPage = lastPage - (groupSize-1)<=0? 1:lastPage - (groupSize-1);
+    let firstPage = lastPage - (groupSize-1)<=0? 1:lastPage - (groupSize-1);
+    if (totalPages <= groupSize) {
+        lastPage = totalPages;
+        firstPage = 1;
+    }
 
-    let paginationHTML=
-    `<li class="page-item" onclick="moveToPage(${page-1})">
+    let paginationHTML= '';
+    if (page >1){
+        paginationHTML +=
+    `<li class="page-item" onclick="moveToPage(1)">
+      <a class="page-link" href="#js-bottom"><i class="fa-solid fa-backward"></i></a>
+
+    <li class="page-item" onclick="moveToPage(${page - 1})">
       <a class="page-link" href="#"><i class="fa-solid fa-arrow-left"></i></a>
     </li>`;
+    }
+
     for(let i = firstPage; i<=lastPage; i++){
         paginationHTML += `<li class="page-item ${i=== page? "active": ""
         }"onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`;
     }
+    if (page < totalPages) {
     paginationHTML +=
     `<li class="page-item"onclick="moveToPage(${page+1})">
       <a class="page-link" href="#"><i class="fa-solid fa-arrow-right"></i></a>
-    </li>`
+    </li>
+    <li class="page-item" onclick="moveToPage(${totalPages})">
+                         <a class="page-link" href="#js-bottom"><i class="fa-solid fa-forward"></i></a>
+                       </li>`;
+    }
     document.querySelector(".pagination").innerHTML = paginationHTML
 };
 
@@ -122,6 +138,8 @@ const moveToPage=(pageNum)=>{
     page = pageNum;
     getNews();
 };
+
+
 getLatestNews();
 /*<li class="page-item"><a class="page-link" href="#">Previous</a></li>
               <li class="page-item"><a class="page-link" href="#">1</a></li>

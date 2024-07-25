@@ -35,6 +35,11 @@ const getNews = async () => {
     }
 };
 
+function setActive(button) {
+    var buttons = document.querySelectorAll('.navbar-nav .nav-link');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+}
 
 const getLatestNews = async () =>{
     url = new URL(
@@ -53,6 +58,7 @@ const getNewsByCategory= async(event)=>{
     const category = event.target.textContent.toLowerCase();
     url = new URL(`https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`);
     getNews();
+    setActive(event.target);
 };
 
 const render=()=>{
@@ -107,28 +113,28 @@ const paginationRender = ()=>{
     }
 
     let paginationHTML= '';
-    if (page >1){
+    if (page > 1) {
         paginationHTML +=
-    `<li class="page-item" onclick="moveToPage(1)">
-      <a class="page-link" href="#js-bottom"><i class="fa-solid fa-backward"></i></a>
-
-    <li class="page-item" onclick="moveToPage(${page - 1})">
-      <a class="page-link" href="#"><i class="fa-solid fa-arrow-left"></i></a>
-    </li>`;
+            `<li class="page-item" onclick="moveToPage(1)">
+                <a class="page-link" href="#"><i class="fa-solid fa-backward"></i></a>
+            </li>
+            <li class="page-item" onclick="moveToPage(${page - 1})">
+                <a class="page-link" href="#"><i class="fa-solid fa-arrow-left"></i></a>
+            </li>`;
     }
-
-    for(let i = firstPage; i<=lastPage; i++){
-        paginationHTML += `<li class="page-item ${i=== page? "active": ""
-        }"onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`;
+    
+    for (let i = firstPage; i <= lastPage; i++) {
+        paginationHTML += `<li class="page-item ${i === page ? "active" : ""}" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`;
     }
+    
     if (page < totalPages) {
-    paginationHTML +=
-    `<li class="page-item"onclick="moveToPage(${page+1})">
-      <a class="page-link" href="#"><i class="fa-solid fa-arrow-right"></i></a>
-    </li>
-    <li class="page-item" onclick="moveToPage(${totalPages})">
-                         <a class="page-link" href="#js-bottom"><i class="fa-solid fa-forward"></i></a>
-                       </li>`;
+        paginationHTML +=
+            `<li class="page-item" onclick="moveToPage(${page + 1})">
+                <a class="page-link" href="#"><i class="fa-solid fa-arrow-right"></i></a>
+            </li>
+            <li class="page-item" onclick="moveToPage(${totalPages})">
+                <a class="page-link" href="#"><i class="fa-solid fa-forward"></i></a>
+            </li>`;
     }
     document.querySelector(".pagination").innerHTML = paginationHTML
 };
